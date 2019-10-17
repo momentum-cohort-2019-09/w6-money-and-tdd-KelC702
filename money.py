@@ -1,8 +1,8 @@
-# pylint: disable=unidiomatic-typecheck,unnecessary-pass
+# pylint: disable=unidiomatic-typecheck, unnecessary-pass
 
 
 class DifferentCurrencyError(Exception):
-    pass
+     pass
 
 
 class Currency:
@@ -18,13 +18,18 @@ class Currency:
         - symbol - optional symbol used to designate currency
         - digits -- number of significant digits used
         """
-        pass
+        self.name = name
+        self.code = code
+        self.symbol = symbol
+        self.digits = digits
+        # pass
 
     def __str__(self):
         """
         Should return the currency code, or code with symbol in parentheses.
         """
-        pass
+        return code and "(${self.symbol})"
+        # pass
 
     def __eq__(self, other):
         """
@@ -33,6 +38,7 @@ class Currency:
         return (type(self) == type(other) and self.name == other.name and
                 self.code == other.code and self.symbol == other.symbol and
                 self.digits == other.digits)
+
 
 
 class Money:
@@ -46,7 +52,9 @@ class Money:
         - amount -- quantity of currency
         - currency -- type of currency
         """
-        pass
+        self.amount = amount
+        self.currency = currency
+        # pass
 
     def __str__(self):
         """
@@ -71,23 +79,37 @@ class Money:
         Add two money objects of the same currency. If they have different
         currencies, raise a DifferentCurrencyError.
         """
-        pass
+        if self.currency.code == other.currency.code:
+            self.amount += other.amount
+            return self
+        else:
+            raise DifferentCurrencyError("Different")
+        # pass
 
     def sub(self, other):
         """
         Subtract two money objects of the same currency. If they have different
         currencies, raise a DifferentCurrencyError.
         """
-        pass
+        if self.currency.code == other.currency.code:
+            self.amount -= other.amount
+            return self
+        else:
+            raise DifferentCurrencyError("Different")
+        # pass
 
     def mul(self, multiplier):
         """
         Multiply a money object by a number to get a new money object.
         """
-        pass
+        self.amount *= multiplier
+        return self
+        # pass
 
     def div(self, divisor):
         """
         Divide a money object by a number to get a new money object.
         """
-        pass
+        self.amount /= divisor
+        return self
+        # pass
